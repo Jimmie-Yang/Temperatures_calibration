@@ -1,4 +1,4 @@
-整理一下代码，用中文写好注释：import os
+import os
 import glob
 import re
 from typing import List, Tuple, Dict
