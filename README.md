@@ -1,0 +1,2 @@
+# Temperatures_calibration
+这个储存库是实习期间为手机loadcell侧键项目做的温度补偿项目
