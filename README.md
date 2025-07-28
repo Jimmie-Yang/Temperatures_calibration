@@ -1,5 +1,77 @@
 # Temperatures_calibration
-这个储存库是实习期间为手机loadcell侧键项目做的温度补偿项目
+这个储存库是实习期间为手机loadcell侧键项目做的温度补偿项目，
+
+# Temperature Calibration Tool
+
+This repository contains a comprehensive temperature calibration tool implemented in Python using the `TC` class. It provides functionalities for loading sensor data, validating signal stability, computing calibration parameters, and visualizing both raw and calibrated signals.
+
+## Features
+
+- 📂 Load multi-temperature sensor signals from Excel files
+- ✅ Validate stability of signal readings per module and channel
+- 📈 Perform linear calibration using least squares method
+- 🔁 Fit temperature-dependent calibration parameters (`k`, `b`) using 2nd-order polynomials
+- 🧪 Apply calibration (standard or joint) across all modules
+- 🗺️ Generate heatmaps showing residual signal deviation per module
+- 🖼️ Save publication-ready plots for all stages
+
+## Folder Structure
+
+- `input_dir`: Directory containing raw Excel signal files (named like `xxx_T30_.xlsx`)
+- `fig_dir`: Output directory for plots
+
+## Class: `TC`
+
+### Initialization
+
+```python
+TC(input_dir, fig_dir=None, ref_rows=None, ref_temp=20, temps_order=None, channel_names=("CH1_sig", "CH2_sig"))
+```
+
+### Key Methods
+
+| Method | Description |
+|--------|-------------|
+| `load_data()` | Load signal data from Excel files |
+| `check_all_modules()` | Validate data stability (max-min difference ≤ 100) |
+| `compute_kb_all()` | Calculate calibration coefficients for each module/channel |
+| `fit_poly_all()` | Fit `k(t)` and `b(t)` to quadratic polynomials |
+| `calibrate_all()` | Apply calibration using fitted polynomials |
+| `compute_kb_joint(modules_to_use)` | Joint calibration from selected modules |
+| `fit_poly_joint()` | Fit joint `k(t)` and `b(t)` polynomials |
+| `calibrate_joint()` | Calibrate all data using joint polynomial model |
+| `plot_signals()` | Plot raw signals |
+| `plot_calibrated()` | Plot calibrated signals |
+| `plot_calibrated_joint()` | Plot jointly calibrated results |
+| `plot_residual_heatmaps()` | Plot error heatmaps (before/after calibration) |
+| `plot_0()` | Plot signal temperature trends (extreme points) |
+| `run_all()` | Full pipeline: load → validate → calibrate (joint) → visualize |
+
+## Example
+
+```python
+if __name__ == '__main__':
+    tc = TC(input_dir="path/to/data", fig_dir="path/to/output", ref_rows=[0,1,8,13,14], ref_temp=30)
+    tc.run_all()
+```
+
+## Requirements
+
+- Python 3.7+
+- `numpy`, `pandas`, `matplotlib`, `openpyxl`
+
+Install via:
+
+```bash
+pip install numpy pandas matplotlib openpyxl
+```
+
+## License
+
+MIT License.
+
+
+
 
 # 温度校准工具
 
